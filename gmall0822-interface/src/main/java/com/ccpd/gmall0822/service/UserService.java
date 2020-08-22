@@ -1,6 +1,6 @@
-package com.ccpd.gmall0822.user.service;
+package com.ccpd.gmall0822.service;
 
-import com.ccpd.gmall0822.user.bean.UserInfo;
+import com.ccpd.gmall0822.bean.UserInfo;
 
 import java.util.List;
 

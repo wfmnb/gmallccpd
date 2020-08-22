@@ -1,7 +1,8 @@
 package com.ccpd.gmall0822.user.controller;
 
-import com.ccpd.gmall0822.user.bean.UserInfo;
-import com.ccpd.gmall0822.user.service.UserService;
+
+import com.ccpd.gmall0822.bean.UserInfo;
+import com.ccpd.gmall0822.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,16 +1,17 @@
 package com.ccpd.gmall0822.user.service.impl;
 
-import com.ccpd.gmall0822.user.bean.UserInfo;
+import com.alibaba.dubbo.config.annotation.Service;
+import com.ccpd.gmall0822.bean.UserInfo;
+import com.ccpd.gmall0822.service.UserService;
 import com.ccpd.gmall0822.user.mapper.UserMapper;
-import com.ccpd.gmall0822.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
+//需要使用dubbo的注解
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;

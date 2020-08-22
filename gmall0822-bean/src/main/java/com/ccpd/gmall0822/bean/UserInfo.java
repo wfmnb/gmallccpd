@@ -1,4 +1,4 @@
-package com.ccpd.gmall0822.user.bean;
+package com.ccpd.gmall0822.bean;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
