@@ -14,14 +14,14 @@ import java.io.Serializable;
 //增加无参构造器
 @NoArgsConstructor
 public class UserInfo implements Serializable {
-    //id是主键
+    //id标识为 主键
     @Id
     //跟表字段对应
     @Column
-    //允许主键自增
+    //允许字段自增
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-    @Column
+    @Column//标识为列，跟数据库字段对应
     private String loginName;
     @Column
     private String nickName;
