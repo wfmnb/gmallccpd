@@ -9,6 +9,7 @@ import org.csource.fastdfs.ClientGlobal;
 import org.csource.fastdfs.StorageClient;
 import org.csource.fastdfs.TrackerClient;
 import org.csource.fastdfs.TrackerServer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,9 @@ import java.util.List;
 @RestController
 @CrossOrigin//解决跨域问题
 public class ManageController {
+
+    @Value("${file.server.url}")
+    private String fileServerPath;
 
     @Reference
     ManageService manageService;
@@ -72,7 +76,7 @@ public class ManageController {
         //上传文件并获得返回值
         String[] upload_file = storageClient.upload_file(file.getBytes(), imageBack, null);
         //服务器图片地址
-        String imagePath = "http://file.gmall.com";
+        String imagePath = fileServerPath;
         //输出文件路径
         for (int i = 0; i < upload_file.length; i++) {
             imagePath += "/"+ upload_file[i];
@@ -103,5 +107,11 @@ public class ManageController {
     @GetMapping("spuImageList")
     public List<SpuImage> spuImageList(String spuId){
         return manageService.getSpuImageList(spuId);
+    }
+
+    @PostMapping("saveSkuInfo")
+    public String saveSkuInfo(@RequestBody SkuInfo skuInfo){
+        manageService.saveSkuInfo(skuInfo);
+        return "success";
     }
 }
