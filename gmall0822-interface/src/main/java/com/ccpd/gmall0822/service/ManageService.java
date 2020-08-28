@@ -3,6 +3,7 @@ package com.ccpd.gmall0822.service;
 import com.ccpd.gmall0822.bean.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ManageService {
     public List<BaseCatalog1> getCatalog1();
@@ -13,19 +14,25 @@ public interface ManageService {
 
     public List<BaseAttrInfo> getAttrList(String catalog3Id);
 
-    void saveAttrInfo(BaseAttrInfo baseAttrInfo);
+    public void saveAttrInfo(BaseAttrInfo baseAttrInfo);
 
-    BaseAttrInfo getAttrInfo(String attrId);
+    public BaseAttrInfo getAttrInfo(String attrId);
 
-    List<SpuInfo> getSpuInfoList(String catalog3Id);
+    public List<SpuInfo> getSpuInfoList(String catalog3Id);
 
-    List<BaseSaleAttr> getBaseSaleAttrList();
+    public List<BaseSaleAttr> getBaseSaleAttrList();
 
-    void saveSpuInfo(SpuInfo spuInfo);
+    public void saveSpuInfo(SpuInfo spuInfo);
 
-    List<SpuSaleAttr> getSpuSaleAttrList(String spuId);
+    public List<SpuSaleAttr> getSpuSaleAttrList(String spuId);
 
-    List<SpuImage> getSpuImageList(String spuId);
+    public List<SpuImage> getSpuImageList(String spuId);
 
-    void saveSkuInfo(SkuInfo skuInfo);
+    public void saveSkuInfo(SkuInfo skuInfo);
+
+    public SkuInfo getSkuInfo(String skuId);
+
+    public List<SpuSaleAttr> getSpuSaleAttrListBySpuIdChecked(String skuId, String spuId);
+
+    public Map getSkuValueIdsMap(String spuId);
 }
