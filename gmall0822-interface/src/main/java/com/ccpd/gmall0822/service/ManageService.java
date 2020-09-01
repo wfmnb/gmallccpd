@@ -35,4 +35,6 @@ public interface ManageService {
     public List<SpuSaleAttr> getSpuSaleAttrListBySpuIdChecked(String skuId, String spuId);
 
     public Map getSkuValueIdsMap(String spuId);
+
+    public List<BaseAttrInfo> getAttrList(List<String> attrValueIdList);
 }

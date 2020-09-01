@@ -6,6 +6,7 @@ import com.ccpd.gmall0822.bean.*;
 import com.ccpd.gmall0822.manage.mapper.*;
 import com.ccpd.gmall0822.service.ManageService;
 import com.ccpd.gmall0822.util.RedisUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -304,5 +305,10 @@ public class ManageServiceImpl implements ManageService{
             map.put(valueIds,skuId);
         }
         return map;
+    }
+
+    @Override
+    public List<BaseAttrInfo> getAttrList(List<String> attrValueIdList) {
+        return baseAttrInfoMapper.selectAttrInfoListByIds(StringUtils.join(attrValueIdList,","));
     }
 }

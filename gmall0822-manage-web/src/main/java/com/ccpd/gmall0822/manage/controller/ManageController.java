@@ -2,7 +2,9 @@ package com.ccpd.gmall0822.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ccpd.gmall0822.bean.*;
+import com.ccpd.gmall0822.service.ListService;
 import com.ccpd.gmall0822.service.ManageService;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.csource.common.MyException;
 import org.csource.fastdfs.ClientGlobal;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @RestController
@@ -25,6 +28,9 @@ public class ManageController {
 
     @Reference
     ManageService manageService;
+
+    @Reference
+    ListService listService;
 
     @PostMapping("getCatalog1")
     public List<BaseCatalog1> getBaseCatalog1(){
@@ -112,6 +118,21 @@ public class ManageController {
     @PostMapping("saveSkuInfo")
     public String saveSkuInfo(@RequestBody SkuInfo skuInfo){
         manageService.saveSkuInfo(skuInfo);
+        return "success";
+    }
+
+    @PostMapping("onSale")
+    public String saveSkuLsInfo(String skuId){
+        SkuInfo skuInfo = manageService.getSkuInfo(skuId);
+        SkuLsInfo skuLsInfo = new SkuLsInfo();
+        try {
+            BeanUtils.copyProperties(skuLsInfo,skuInfo);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        listService.saveSkuInfo(skuLsInfo);
         return "success";
     }
 }
