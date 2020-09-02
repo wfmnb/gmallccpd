@@ -7,7 +7,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 //不是兄弟关系时使用该注解
-@ComponentScan
+@ComponentScan("com.ccpd.gmall0822")
 //指定Mapper路径
 @MapperScan(basePackages = "com.ccpd.gmall0822.user.mapper")
 public class Gmall0822UserManageApplication {

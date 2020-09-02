@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.ccpd.gmall0822.bean.SkuInfo;
 import com.ccpd.gmall0822.bean.SpuSaleAttr;
+import com.ccpd.gmall0822.config.LoginRequire;
 import com.ccpd.gmall0822.service.ListService;
 import com.ccpd.gmall0822.service.ManageService;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class ItemController {
     ListService listService;
 
     @GetMapping("{skuId}.html")
+    @LoginRequire
     public String getSkuInfo(@PathVariable("skuId") String skuId,HttpServletRequest request){
         SkuInfo skuInfo = manageService.getSkuInfo(skuId);
         List<SpuSaleAttr> saleAttrList  = manageService.getSpuSaleAttrListBySpuIdChecked(skuId, skuInfo.getSpuId());
