@@ -36,15 +36,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             //获取浏览器的中的token
             token = CookieUtil.getCookieValue(request,"token",false);
         }
-
+        //获取LoginRequire注解
+        HandlerMethod handlerMethod = (HandlerMethod)handler;
+        LoginRequire loginRequire = handlerMethod.getMethodAnnotation(LoginRequire.class);
         if(token != null){
             //token不为空，获取token中的用户信息
             userMap = getUserMapFromToken(token);
             String nickName = (String) userMap.get("nickName");
             request.setAttribute("nickName",nickName);
-            //获取LoginRequire注解
-            HandlerMethod handlerMethod = (HandlerMethod)handler;
-            LoginRequire loginRequire = handlerMethod.getMethodAnnotation(LoginRequire.class);
             if(loginRequire != null){
                 //注解不为空则，证明需要验证用户是否登录
                 //获取用户访问IP，获得该IP，需要在nginx中进行配置proxy_set_header X-forwarded-for $proxy_add_x_forwarded_for;
@@ -52,6 +51,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 //向认证中心发送请求，验证用户是否登录
                 String result = HttpClientUtil.doGet(VERIFY_ADDRESS + "?token=" + token + "&currentIp=" + currentIp);
                 if("success".equals(result)){
+                    String userId = (String)userMap.get("userId");
+                    request.setAttribute("userId",userId);
                     return true;
                 //不需要验证
                 }else if(!loginRequire.autoRedirect()){
@@ -63,6 +64,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         }else{
+            if(loginRequire == null){
+                return true;
+            }
             //token为空强制跳转登录界面
             autoRedirect(request,response);
             return false;

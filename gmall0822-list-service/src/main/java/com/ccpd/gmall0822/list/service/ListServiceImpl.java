@@ -68,6 +68,7 @@ public class ListServiceImpl implements ListService{
         Jedis jedis = redisUtil.getJedis();
         String hotScoreKey = "sku:"+skuId+":hotScore";
         Long incr = jedis.incr(hotScoreKey);
+        jedis.expire(hotScoreKey,60*60*24);
         if(incr%10==0){
             updateHotScore(skuId,incr);
         }

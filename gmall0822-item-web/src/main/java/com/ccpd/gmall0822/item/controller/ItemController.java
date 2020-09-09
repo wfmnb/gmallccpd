@@ -26,7 +26,6 @@ public class ItemController {
     ListService listService;
 
     @GetMapping("{skuId}.html")
-    @LoginRequire
     public String getSkuInfo(@PathVariable("skuId") String skuId,HttpServletRequest request){
         SkuInfo skuInfo = manageService.getSkuInfo(skuId);
         List<SpuSaleAttr> saleAttrList  = manageService.getSpuSaleAttrListBySpuIdChecked(skuId, skuInfo.getSpuId());
@@ -35,7 +34,7 @@ public class ItemController {
         request.setAttribute("skuInfo",skuInfo);
         request.setAttribute("saleAttrList",saleAttrList);
         request.setAttribute("skuValueIdsJson",skuValueIdsJson);
-        listService.incrHotScore(skuId);
+        //listService.incrHotScore(skuId);
         return "item";
     }
 }

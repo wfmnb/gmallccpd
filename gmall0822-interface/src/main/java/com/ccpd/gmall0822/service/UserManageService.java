@@ -1,5 +1,6 @@
 package com.ccpd.gmall0822.service;
 
+import com.ccpd.gmall0822.bean.UserAddress;
 import com.ccpd.gmall0822.bean.UserInfo;
 
 import java.util.List;
@@ -21,6 +22,8 @@ public interface UserManageService {
     public UserInfo login(UserInfo userInfo);
 
     public UserInfo verify(String userId);
+
+    public List<UserAddress> getUserAddress(String userId);
 
 }
 

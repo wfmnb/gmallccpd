@@ -2,8 +2,10 @@ package com.ccpd.gmall0822.user.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.ccpd.gmall0822.bean.UserAddress;
 import com.ccpd.gmall0822.bean.UserInfo;
 import com.ccpd.gmall0822.service.UserManageService;
+import com.ccpd.gmall0822.user.mapper.UserAddressMapper;
 import com.ccpd.gmall0822.user.mapper.UserMapper;
 import com.ccpd.gmall0822.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,10 @@ public class UserManageServiceImpl implements UserManageService {
     @Autowired
     RedisUtil redisUtil;
 
+    @Autowired
+    UserAddressMapper userAddressMapper;
 
-    public String userKey_prefix = ":user";
+    public String userKey_prefix = "user:";
     public String userinfoKey_suffix = ":info";
     public int userKey_timeOut = 60*60*24;
 
@@ -93,5 +97,13 @@ public class UserManageServiceImpl implements UserManageService {
             return userInfo;
         }
         return null;
+    }
+
+    @Override
+    public List<UserAddress> getUserAddress(String userId) {
+        UserAddress userAddress = new UserAddress();
+        userAddress.setUserId(userId);
+        List<UserAddress> userAddressList = userAddressMapper.select(userAddress);
+        return userAddressList;
     }
 }
