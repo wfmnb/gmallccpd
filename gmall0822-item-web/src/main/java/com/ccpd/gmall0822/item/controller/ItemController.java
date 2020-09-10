@@ -34,7 +34,7 @@ public class ItemController {
         request.setAttribute("skuInfo",skuInfo);
         request.setAttribute("saleAttrList",saleAttrList);
         request.setAttribute("skuValueIdsJson",skuValueIdsJson);
-        //listService.incrHotScore(skuId);
+        listService.incrHotScore(skuId);
         return "item";
     }
 }

@@ -1,6 +1,7 @@
 package com.ccpd.gmall0822.order.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.ccpd.gmall0822.bean.*;
 import com.ccpd.gmall0822.config.LoginRequire;
 import com.ccpd.gmall0822.enums.OrderStatus;
@@ -15,14 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import sun.net.www.http.HttpClient;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -117,4 +117,13 @@ public class OrderController {
         String hasStock = HttpClientUtil.doGet("http://www.gware.com/hasStock?skuId=" + orderDetail.getSkuId() + "&num=" + orderDetail.getSkuNum());
         return hasStock;
     }
+
+    @PostMapping("orderSplit")
+    @ResponseBody
+    public String orderSplit(@RequestParam("orderId") String orderId,@RequestParam("wareSkuMap") String wareSkuMap){
+        List<Map> orderDetailForWareList = orderService.orderSplit(orderId,wareSkuMap);
+        String jsonString = JSON.toJSONString(orderDetailForWareList);
+        return jsonString;
+    }
+
 }

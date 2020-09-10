@@ -86,6 +86,7 @@ public class PaymentController {
         paymentInfo.setCreateTime(new Date());
         paymentInfo.setPaymentStatus(PaymentStatus.UNPAID);
         paymentService.savPaymentInfo(paymentInfo);
+        paymentService.sendDelayPaymentResult(outTradeNo,30,3);
 
         response.setContentType("text/html;charset=UTF-8");
         return submitHtml;
@@ -114,6 +115,7 @@ public class PaymentController {
                         paymentInfoUpdate.setCallbackContent(JSON.toJSONString(paraMap));
 
                         paymentService.updatePaymentInfoByOutTradeNo(outTradeNo, paymentInfoUpdate);
+                        paymentService.sendPaymentResult(paymentInfo.getOrderId(),"success");
                         return "success";
                     } else if (PaymentStatus.ClOSED.equals(paymentInfo.getPaymentStatus())) {
                         return "fail";
@@ -152,5 +154,12 @@ public class PaymentController {
             return "success";
         }
         return response.getSubCode() + ":" + response.getSubMsg();
+    }
+
+    @GetMapping("sendPaymentResult")
+    @ResponseBody
+    public String sendPaymentResult(String orderId){
+        paymentService.sendPaymentResult(orderId,"success");
+        return "success";
     }
 }
