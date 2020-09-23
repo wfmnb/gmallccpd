@@ -20,6 +20,18 @@
         <module>../gmall0822-util-common</module>
         <module>../gmall0822-util-web</module>
         <module>../gmall0822-util-service</module>
+        <module>../gmall0822-list-service</module>
+        <module>../gmall0822-list-web</module>
+        <module>../gmall0822-cart-service</module>
+        <module>../gmall0822-cart-web</module>
+        <module>../gmall0822-item-web</module>
+        <module>../gmall0822-manage-service</module>
+        <module>../gmall0822-manage-web</module>
+        <module>../gmall0822-order-service</module>
+        <module>../gmall0822-order-web</module>
+        <module>../gmall0822-passport-web</module>
+        <module>../gmall0822-payment</module>
+        <module>../gmall0822-user-manage</module>
     </modules>
 
     <properties>
